@@ -1,11 +1,11 @@
 // === RENDER CART ITEMS ===
 function renderCartItems() {
   const cart = getCart();
-  const cartItemsContainer = document.getElementById("cart-items");
+  const cartContainer = document.getElementById("cart-items-container");
   const emptyCart = document.getElementById("empty-cart");
   const cartSummary = document.getElementById("cart-summary");
 
-  if (!cartItemsContainer) return;
+  if (!cartContainer) return;
 
   const cartProducts = Object.keys(cart).map((id) => {
     const product = products.find((p) => p.id == id);
@@ -13,46 +13,39 @@ function renderCartItems() {
   });
 
   if (cartProducts.length === 0) {
-    cartItemsContainer.innerHTML = "";
-    emptyCart.style.display = "block";
-    cartSummary.style.display = "none";
+    cartContainer.innerHTML = "";
+    if (emptyCart) emptyCart.style.display = "block";
+    if (cartSummary) cartSummary.style.display = "none";
     return;
   }
 
-  emptyCart.style.display = "none";
-  cartSummary.style.display = "block";
+  if (emptyCart) emptyCart.style.display = "none";
+  if (cartSummary) cartSummary.style.display = "block";
 
-  cartItemsContainer.innerHTML = cartProducts
+  cartContainer.innerHTML = cartProducts
     .map(
       (item) => `
-    <div class="card mb-3">
-      <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}">
-        <div class="cart-item-details">
-          <h6 class="mb-1">${item.name}</h6>
-          <p class="text-muted mb-2">Rp ${item.price.toLocaleString(
-            "id-ID"
-          )}</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="quantity-controls">
-              <button class="btn btn-outline-primary btn-sm" onclick="updateCartQuantity(${
-                item.id
-              }, -1)">
-                <i data-lucide="minus"></i>
-              </button>
-              <span>${item.quantity}</span>
-              <button class="btn btn-outline-primary btn-sm" onclick="updateCartQuantity(${
-                item.id
-              }, 1)">
-                <i data-lucide="plus"></i>
-              </button>
-            </div>
-            <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart(${
+    <div class="cart-item-card">
+      <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+      <div class="cart-item-details">
+        <h3 class="cart-item-name">${item.name}</h3>
+        <p class="cart-item-price">Rp ${item.price.toLocaleString("id-ID")}</p>
+        <div class="cart-item-actions">
+          <div class="quantity-controls">
+            <button class="qty-btn" onclick="updateCartQuantity(${
               item.id
-            })">
-              <i data-lucide="trash-2"></i>
+            }, -1)">
+              <i data-lucide="minus"></i>
+            </button>
+            <span class="qty-display">${item.quantity}</span>
+            <button class="qty-btn" onclick="updateCartQuantity(${item.id}, 1)">
+              <i data-lucide="plus"></i>
             </button>
           </div>
+          <button class="btn-remove" onclick="removeFromCart(${item.id})">
+            <i data-lucide="trash-2"></i>
+            Remove
+          </button>
         </div>
       </div>
     </div>
@@ -65,10 +58,17 @@ function renderCartItems() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  document.getElementById("subtotal").textContent =
-    "Rp " + total.toLocaleString("id-ID");
-  document.getElementById("total").textContent =
-    "Rp " + total.toLocaleString("id-ID");
+
+  const subtotalElement = document.getElementById("subtotal");
+  const totalElement = document.getElementById("total");
+
+  if (subtotalElement) {
+    subtotalElement.textContent = "Rp " + total.toLocaleString("id-ID");
+  }
+
+  if (totalElement) {
+    totalElement.textContent = "Rp " + total.toLocaleString("id-ID");
+  }
 
   lucide.createIcons();
 }
@@ -90,10 +90,12 @@ function updateCartQuantity(productId, change) {
 
 // === REMOVE FROM CART ===
 function removeFromCart(productId) {
-  const cart = getCart();
-  delete cart[productId];
-  saveCart(cart);
-  renderCartItems();
+  if (confirm("Remove this item from cart?")) {
+    const cart = getCart();
+    delete cart[productId];
+    saveCart(cart);
+    renderCartItems();
+  }
 }
 
 // === CHECKOUT ===
@@ -114,9 +116,9 @@ function checkout() {
 }
 
 // === INITIALIZE CART PAGE ===
-if (document.getElementById("cart-items")) {
+if (document.getElementById("cart-items-container")) {
   document.addEventListener("DOMContentLoaded", () => {
-    loadTheme();
     renderCartItems();
+    updateCartBadge();
   });
 }

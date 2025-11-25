@@ -1,87 +1,251 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dea's Shoes - Toko Sepatu Online</title>
+    <title>Dea's Shoes - Premium Footwear Collection</title>
 
-    <!-- PWA -->
     <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#0d6efd" />
-    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="theme-color" content="#E31E24" />
 
-    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <!-- Header -->
-    <nav class="navbar navbar-light bg-light sticky-top shadow-sm">
+    <nav class="main-navbar">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">
-          <img src="./icon-512.png" alt="Shoes" width="48" />
-          Dea's Shoes</span
-        >
-        <div class="d-flex align-items-center gap-3">
-          <button
-            class="btn btn-link position-relative"
-            onclick="window.location.href='cart.html'"
-          >
-            <i data-lucide="shopping-cart" class="text-dark"></i>
-            <span
-              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-              id="cart-badge"
-            >
-              0
-            </span>
-          </button>
-          <button class="btn btn-link" id="themeToggle">
-            <i data-lucide="moon" id="theme-icon"></i>
-          </button>
+        <div class="navbar-content">
+          <a href="index.html" class="brand-logo">Dea's Shoes</a>
+          <div class="nav-menu">
+            <a href="index.html#hero" class="nav-link">SHOP</a>
+            <a href="index.html#special" class="nav-link">SPECIAL'S</a>
+            <a href="index.html#products" class="nav-link">PRODUCTS</a>
+            <a href="/cart.html" class="nav-link">CART</a>
+            <a href="/settings.html" class="nav-link">SETTINGS</a>
+          </div>
+          <div class="nav-icons">
+            <button class="icon-btn" onclick="window.location.href='cart.html'">
+              <i data-lucide="shopping-bag"></i>
+              <span class="cart-count" id="cart-badge">0</span>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
 
-    <!-- Product Grid -->
-    <div class="container my-4">
-      <div class="row row-cols-2 row-cols-md-4 g-3" id="product-list"></div>
-    </div>
+    <!-- Hero Categories -->
+    <section id="hero" class="hero-categories">
+      <div class="container-lg">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div
+              class="category-card"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1560343090-f0409e92791a?w=800&h=600&fit=crop');
+              "
+            >
+              <div class="category-overlay">
+                <h2 class="category-title">Online<br />Exclusive</h2>
+                <button class="btn-view-more">View more</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="category-card"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800&h=600&fit=crop');
+              "
+            >
+              <div class="category-overlay">
+                <h2 class="category-title">Women</h2>
+                <button class="btn-view-more">View more</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="category-card"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=800&h=600&fit=crop');
+              "
+            >
+              <div class="category-overlay">
+                <h2 class="category-title">Men</h2>
+                <button class="btn-view-more">View more</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-      <button
-        class="btn-nav active"
-        onclick="window.location.href='index.html'"
-      >
-        <i data-lucide="home"></i>
-        <span>Home</span>
-      </button>
-      <button class="btn-nav" onclick="window.location.href='cart.html'">
-        <i data-lucide="shopping-cart"></i>
-        <span>Cart</span>
-      </button>
-      <button class="btn-nav" onclick="window.location.href='settings.html'">
-        <i data-lucide="settings"></i>
-        <span>Settings</span>
-      </button>
-    </nav>
+    <!-- Special Collections -->
+    <section id="special" class="special-collections">
+      <div class="container-lg">
+        <h2 class="section-title">Special collections</h2>
 
-    <!-- Floating Install Button -->
-    <button id="installBtn" class="pwa-install-btn" style="display: none">
-      <i data-lucide="download"></i>
-    </button>
+        <div class="collections-grid">
+          <div class="collection-item large">
+            <div
+              class="collection-card"
+              style="
+                background-image: linear-gradient(
+                  135deg,
+                  #1a5f4a 0%,
+                  #2d8b6e 100%
+                );
+              "
+            >
+              <div class="collection-badge">new</div>
+              <div class="collection-content">
+                <img
+                  src="assets/exclusive-shoes.avif"
+                  alt="Point Sandals"
+                  class="collection-product"
+                />
+                <div class="collection-info">
+                  <h3 class="collection-name">Exclusive Sport Shoes</h3>
+                  <a href="#" class="collection-link">Discover more →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-item medium">
+            <div
+              class="collection-card"
+              style="
+                background: linear-gradient(180deg, #87ceeb 0%, #4682b4 100%);
+              "
+            >
+              <img
+                src="assets/socks.webp"
+                alt="Socks"
+                class="collection-img-full"
+              />
+              <div class="collection-overlay-bottom">
+                <h3 class="collection-name-white">Limited Socks</h3>
+                <a href="#" class="collection-link">Discover more →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="collection-item medium">
+            <div
+              class="collection-card"
+              style="
+                background: linear-gradient(180deg, #d4af37 0%, #b8960c 100%);
+              "
+            >
+              <img
+                src="assets/flip-flops.webp"
+                alt="Aqua Collection"
+                class="collection-img-full"
+              />
+              <div class="collection-overlay-bottom">
+                <h3 class="collection-name-white">Flip flops</h3>
+                <a href="#" class="collection-link-white">Discover more →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="featured-products">
+      <div class="container-lg">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="products-grid" id="products-grid">
+          <!-- Products will be rendered here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container-lg">
+        <div class="row">
+          <div class="col-md-3">
+            <h5 class="footer-title">ABOUT US</h5>
+            <ul class="footer-links">
+              <li><a href="#">Our Story</a></li>
+              <li><a href="#">Sustainability</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h5 class="footer-title">CUSTOMER SERVICE</h5>
+            <ul class="footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">Size Guide</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h5 class="footer-title">FOLLOW US</h5>
+            <ul class="footer-links">
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Twitter</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h5 class="footer-title">NEWSLETTER</h5>
+            <p>Subscribe to get special offers</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>Made with ❤️ by Dea Putri</p>
+          <p>&copy; 2024 Dea's Shoes. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
+    <script src="theme.js"></script>
     <script>
       lucide.createIcons();
+
+      // Carousel functionality
+      let currentSlide = 0;
+      const carousel = document.getElementById("productCarousel");
+      const items = carousel.querySelectorAll(".product-type-item");
+      const totalSlides = Math.ceil(items.length / 4);
+
+      function scrollCarousel(direction) {
+        currentSlide += direction;
+        if (currentSlide < 0) currentSlide = 0;
+        if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+
+        const scrollAmount = carousel.offsetWidth * currentSlide;
+        carousel.scrollTo({ left: scrollAmount, behavior: "smooth" });
+        updateDots();
+      }
+
+      function updateDots() {
+        const dotsContainer = document.getElementById("carouselDots");
+        dotsContainer.innerHTML = "";
+        for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement("span");
+          dot.className = "dot" + (i === currentSlide ? " active" : "");
+          dot.onclick = () => {
+            currentSlide = i;
+            scrollCarousel(0);
+          };
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      updateDots();
     </script>
   </body>
 </html>

@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pembayaran Berhasil - Dea's Shoes</title>
-  
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0d6efd">
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <div class="text-center" style="margin-top: 25vh;">
-      <i data-lucide="check-circle" style="width: 80px; height: 80px;" class="text-success mb-4"></i>
-      <h2 class="mb-3">Pembayaran Berhasil!</h2>
-      <p class="text-muted mb-2">Terima kasih telah berbelanja</p>
-      <h3 class="text-primary mb-4" id="payment-amount">Rp 0</h3>
-      <p class="text-muted small">Pesanan Anda sedang diproses</p>
-      <button class="btn btn-primary mt-4 px-5" onclick="backToHome()">
-        Kembali ke Beranda
-      </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Success - Dea's Shoes</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="success-page">
+      <div class="success-container">
+        <i data-lucide="check-circle" class="success-icon"></i>
+        <h1>Order Successful!</h1>
+        <p>Thank you for your purchase</p>
+        <div class="success-amount" id="payment-amount">Rp 0</div>
+        <p class="success-message">Your order is being processed</p>
+        <button class="btn-primary-custom" onclick="backToHome()">
+          Back to Home
+        </button>
+      </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
-  <script>
-    // Display payment amount
-    const amount = sessionStorage.getItem('ss_payment_amount') || '0';
-    document.getElementById('payment-amount').textContent = 'Rp ' + parseInt(amount).toLocaleString('id-ID');
-    
-    function backToHome() {
-      // Clear cart
-      localStorage.removeItem('ss_cart');
-      sessionStorage.removeItem('ss_payment_amount');
-      window.location.href = 'index.html';
-    }
+    <script src="script.js"></script>
+    <script>
+      const amount = sessionStorage.getItem("ss_payment_amount") || "0";
+      document.getElementById("payment-amount").textContent =
+        "Rp " + parseInt(amount).toLocaleString("id-ID");
 
-    lucide.createIcons();
-  </script>
-</body>
+      function backToHome() {
+        localStorage.removeItem("ss_cart");
+        sessionStorage.removeItem("ss_payment_amount");
+        window.location.href = "index.html";
+      }
+
+      lucide.createIcons();
+    </script>
+  </body>
 </html>

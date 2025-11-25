@@ -1,11 +1,11 @@
 {
-  "name": "Dea's Shoes - Toko Sepatu Online",
+  "name": "Dea's Shoes - Premium Footwear Collection",
   "short_name": "Dea's Shoes",
-  "description": "Toko sepatu online terbaik dengan berbagai pilihan produk Nike",
-  "start_url": ".",
+  "description": "Discover the latest collection of premium footwear",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0d6efd",
+  "theme_color": "#E31E24",
   "orientation": "portrait-primary",
   "icons": [
     {

@@ -4,105 +4,125 @@ const products = [
     id: 1,
     name: "Nike Air Force 1",
     price: 1499000,
-    image: "assets/product1.avif",
+    image:
+      "assets/product1.jpeg",
+    category: "men",
   },
   {
     id: 2,
     name: "Nike Zoom Vomero 5 SE",
     price: 1999000,
-    image: "assets/product2.avif",
+    image:
+      "assets/product2.jpeg",
+    category: "sports",
   },
   {
     id: 3,
     name: "Nike Air Jordan MVP 92",
     price: 2799000,
-    image: "assets/product3.avif",
+    image:
+      "assets/product3.jpeg",
+    category: "men",
   },
   {
     id: 4,
     name: "Nike Jordan NOLA",
     price: 2299000,
-    image: "assets/product4.avif",
+    image:
+      "assets/product4.jpeg",
+    category: "women",
   },
   {
     id: 5,
     name: "Nike SB Zoom Blazer Mid",
     price: 1599000,
-    image: "assets/product5.avif",
+    image:
+      "assets/product5.jpeg",
+    category: "sports",
   },
   {
     id: 6,
     name: "Nike SB x Air Jordan 4",
     price: 3299000,
-    image: "assets/product6.avif",
+    image:
+      "assets/product6.jpeg",
+    category: "men",
   },
   {
     id: 7,
     name: "Nike Go FlyEase",
     price: 1799000,
-    image: "assets/product7.avif",
+    image:
+      "assets/product7.jpeg",
+    category: "kids",
   },
-  { id: 8, name: "Nike P 6000", price: 1499000, image: "assets/product8.avif" },
+  {
+    id: 8,
+    name: "Nike P 6000",
+    price: 1499000,
+    image:
+      "assets/product8.jpeg",
+    category: "women",
+  },
+  {
+    id: 9,
+    name: "Adidas Ultraboost",
+    price: 2499000,
+    image:
+      "assets/product9.jpg",
+    category: "sports",
+  },
+  {
+    id: 10,
+    name: "Puma RS-X",
+    price: 1699000,
+    image:
+      "assets/product10.jpeg",
+    category: "men",
+  },
+  {
+    id: 11,
+    name: "New Balance 574",
+    price: 1399000,
+    image:
+      "assets/product11.jpeg",
+    category: "women",
+  },
+  {
+    id: 12,
+    name: "Converse Chuck Taylor",
+    price: 899000,
+    image:
+      "assets/product12.jpeg",
+    category: "kids",
+  },
 ];
 
-// === LOAD THEME ===
-function loadTheme() {
-  const theme = localStorage.getItem("ss_theme");
-  if (theme === "dark") {
-    document.body.setAttribute("data-bs-theme", "dark");
-    const themeIcon = document.getElementById("theme-icon");
-    if (themeIcon) {
-      themeIcon.setAttribute("data-lucide", "sun");
-      lucide.createIcons();
-    }
-  }
-}
-
-// === THEME TOGGLE ===
-const themeToggle = document.getElementById("themeToggle");
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    const isDark = document.body.getAttribute("data-bs-theme") === "dark";
-    const themeIcon = document.getElementById("theme-icon");
-
-    if (isDark) {
-      document.body.removeAttribute("data-bs-theme");
-      localStorage.setItem("ss_theme", "light");
-      themeIcon.setAttribute("data-lucide", "moon");
-    } else {
-      document.body.setAttribute("data-bs-theme", "dark");
-      localStorage.setItem("ss_theme", "dark");
-      themeIcon.setAttribute("data-lucide", "sun");
-    }
-
-    lucide.createIcons();
-  });
-}
-
-// === GET CART ===
+// === CART FUNCTIONS ===
 function getCart() {
   const cart = localStorage.getItem("ss_cart");
   return cart ? JSON.parse(cart) : {};
 }
 
-// === SAVE CART ===
 function saveCart(cart) {
   localStorage.setItem("ss_cart", JSON.stringify(cart));
   updateCartBadge();
 }
 
-// === UPDATE CART BADGE ===
 function updateCartBadge() {
   const badge = document.getElementById("cart-badge");
   if (badge) {
     const cart = getCart();
     const total = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
     badge.textContent = total;
-    badge.style.display = total > 0 ? "inline-block" : "none";
+    if (total > 0) {
+      badge.classList.add("active");
+    } else {
+      badge.classList.remove("active");
+    }
   }
 }
 
-// === ADD TO CART ===
 function addToCart(productId) {
   const cart = getCart();
   cart[productId] = (cart[productId] || 0) + 1;
@@ -110,7 +130,6 @@ function addToCart(productId) {
   renderProducts();
 }
 
-// === UPDATE QUANTITY ===
 function updateQuantity(productId, change) {
   const cart = getCart();
   const newQty = (cart[productId] || 0) + change;
@@ -127,7 +146,7 @@ function updateQuantity(productId, change) {
 
 // === RENDER PRODUCTS ===
 function renderProducts() {
-  const container = document.getElementById("product-list");
+  const container = document.getElementById("products-grid");
   if (!container) return;
 
   const cart = getCart();
@@ -137,30 +156,32 @@ function renderProducts() {
       const quantity = cart[product.id] || 0;
 
       return `
-      <div class="col">
-        <div class="card product-card h-100">
-          <img src="${product.image}" class="card-img-top" alt="${
+      <div class="product-card">
+        <div class="product-image-wrapper">
+          <img src="${product.image}" alt="${
         product.name
-      }">
-          <div class="card-body d-flex flex-column">
-            <h6 class="card-title">${product.name}</h6>
-            <p class="card-text text-muted mb-auto">Rp ${product.price.toLocaleString(
-              "id-ID"
-            )}</p>
+      }" class="product-image">
+        </div>
+        <div class="product-info">
+          <div class="product-name">${product.name}</div>
+          <div class="product-price">Rp ${product.price.toLocaleString(
+            "id-ID"
+          )}</div>
+          <div class="product-actions">
             ${
               quantity === 0
                 ? `
-              <button class="btn btn-primary btn-sm mt-2" onclick="addToCart(${product.id})">
-                Tambah
+              <button class="btn-add-cart" onclick="addToCart(${product.id})">
+                Add to Cart
               </button>
             `
                 : `
-              <div class="quantity-controls mt-2">
-                <button class="btn btn-outline-primary btn-sm" onclick="updateQuantity(${product.id}, -1)">
+              <div class="quantity-controls">
+                <button class="qty-btn" onclick="updateQuantity(${product.id}, -1)">
                   <i data-lucide="minus"></i>
                 </button>
-                <span>${quantity}</span>
-                <button class="btn btn-outline-primary btn-sm" onclick="updateQuantity(${product.id}, 1)">
+                <span class="qty-display">${quantity}</span>
+                <button class="qty-btn" onclick="updateQuantity(${product.id}, 1)">
                   <i data-lucide="plus"></i>
                 </button>
               </div>
@@ -176,7 +197,7 @@ function renderProducts() {
   lucide.createIcons();
 }
 
-// === REGISTER SERVICE WORKER ===
+// === SERVICE WORKER ===
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
@@ -186,16 +207,7 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-// === INITIALIZE ===
-document.addEventListener("DOMContentLoaded", () => {
-  loadTheme();
-  updateCartBadge();
-  renderProducts();
-});
-
-// ==========================
-// FLOATING PWA INSTALL BUTTON
-// ==========================
+// === PWA INSTALL ===
 let deferredPrompt;
 const installBtn = document.getElementById("installBtn");
 
@@ -203,7 +215,7 @@ window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
 
-  if (installBtn) installBtn.style.display = "flex"; // tampilkan
+  if (installBtn) installBtn.style.display = "flex";
 });
 
 if (installBtn) {
@@ -219,3 +231,14 @@ if (installBtn) {
     installBtn.style.display = "none";
   });
 }
+
+// === INITIALIZE ===
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartBadge();
+  renderProducts();
+
+  // Load theme
+  if (localStorage.getItem("ss_theme") === "dark") {
+    document.body.setAttribute("data-theme", "dark");
+  }
+});
